@@ -1,9 +1,9 @@
 'use strict';
 
+const articles = document.querySelectorAll('.posts .post');
+
 function titleClickHandler(event) {
   event.preventDefault();
-
-  /* [DONE] remove class 'active' from all article links  */
 
   const activeLinks = document.querySelectorAll('.titles a.active');
 
@@ -11,11 +11,7 @@ function titleClickHandler(event) {
     activeLink.classList.remove('active');
   }
 
-  /* [DONE] add class 'active' to the clicked link */
-
   this.classList.add('active');
-
-  /* [DONE] remove class 'active' from all articles */
 
   const activeArticles = document.querySelectorAll('.posts .post.active');
 
@@ -23,21 +19,10 @@ function titleClickHandler(event) {
     article.classList.remove('active');
   }
 
-  /*[DONE] get 'href' attribute from the clicked link */
-
   const linkHref = this.getAttribute('href').replace('#', '');
 
-  /* find the correct article using the selector (value of 'href' attribute) */
-
-  const articles = document.querySelectorAll('.posts .post');
-
-
   for (let article of articles) {
-
     const articleId = article.getAttribute('id')
-
-    /* add class 'active' to the correct article */
-
     if (linkHref === articleId) {
       article.classList.add('active');
     }
@@ -45,8 +30,29 @@ function titleClickHandler(event) {
 
 }
 
-const links = document.querySelectorAll('.titles a');
-
-for (let link of links) {
-  link.addEventListener('click', titleClickHandler);
+function clearMessage() {
+  const doc = document.querySelector('.sidebar .list').innerHTML = '';
 }
+
+function generateTitleLinks() {
+
+  const titleList = document.querySelector('.sidebar .list')
+
+  for (let article of articles) {
+
+    const articleId = article.getAttribute('id');
+    const articleTitle = article.querySelector('.post-title').innerHTML;
+    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    titleList.innerHTML = titleList.innerHTML + linkHTML;
+  }
+
+  const links = document.querySelectorAll('.titles a');
+  console.log(links);
+
+  for (let link of links) {
+    link.addEventListener('click', titleClickHandler);
+  }
+}
+
+clearMessage();
+generateTitleLinks();
