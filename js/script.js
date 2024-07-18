@@ -22,7 +22,7 @@ function titleClickHandler(event) {
   const linkHref = this.getAttribute('href').replace('#', '');
 
   for (let article of articles) {
-    const articleId = article.getAttribute('id')
+    const articleId = article.getAttribute('id');
     if (linkHref === articleId) {
       article.classList.add('active');
     }
@@ -31,12 +31,12 @@ function titleClickHandler(event) {
 }
 
 function clearMessage() {
-  const doc = document.querySelector('.sidebar .list').innerHTML = '';
+  document.querySelector('.sidebar .list').innerHTML = '';
 }
 
 function generateTitleLinks() {
 
-  const titleList = document.querySelector('.sidebar .list')
+  const titleList = document.querySelector('.sidebar .list');
 
   for (let article of articles) {
 
