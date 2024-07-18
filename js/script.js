@@ -47,12 +47,31 @@ function generateTitleLinks() {
   }
 
   const links = document.querySelectorAll('.titles a');
-  console.log(links);
 
   for (let link of links) {
     link.addEventListener('click', titleClickHandler);
   }
 }
 
+
+function generateTags() {
+
+  for (let article of articles) {
+
+    const tagsWrapper = article.querySelector('.list.list-horizontal');
+    let html = '';
+    const articleDataTag = article.getAttribute('data-tags');
+    const dataTagsArray = articleDataTag.split(' ');
+
+    for (let tag of dataTagsArray) {
+      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li> ';
+      html = html + linkHTML;
+    }
+
+    tagsWrapper.innerHTML = html;
+  }
+}
+
+generateTags();
 clearMessage();
 generateTitleLinks();
