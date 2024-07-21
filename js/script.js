@@ -34,8 +34,9 @@ function clearMessage() {
   document.querySelector('.sidebar .list').innerHTML = '';
 }
 
-function generateTitleLinks() {
+function generateTitleLinks(customSelector = '') {
 
+  const articles = document.querySelectorAll('.posts .post' + customSelector);
   const titleList = document.querySelector('.sidebar .list');
 
   for (let article of articles) {
@@ -72,6 +73,37 @@ function generateTags() {
   }
 }
 
-generateTags();
+function tagClickHandler(event) {
+  event.preventDefault();
+
+  const clickedElement = this;
+  const hrefClickedElement = clickedElement.getAttribute('href');
+  const href = hrefClickedElement;
+  const activeTags = document.querySelectorAll('a.active[href ^= "#tag-"]');
+
+  for (let activeTag of activeTags) {
+    activeTag.classList.remove('active');
+  }
+
+  const tagLinks = document.querySelectorAll('a[href="' + href + '"]');
+
+  for (let tagLink of tagLinks) {
+    tagLink.classList.add('active');
+  }
+
+  generateTitleLinks('[data-tags~="' + href + '"]');
+}
+
+function addClickListenersToTags() {
+
+  const links = document.querySelectorAll('.list-horizontal a');
+
+  for (let link of links) {
+    link.addEventListener('click', tagClickHandler);
+  }
+}
+
 clearMessage();
+generateTags();
 generateTitleLinks();
+addClickListenersToTags();
