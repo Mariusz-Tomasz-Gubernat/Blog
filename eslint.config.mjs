@@ -33,5 +33,8 @@ export default [...compat.extends("eslint:recommended"), {
         semi: ["error", "always"],
         "no-console": ["off"],
         "no-prototype-builtins": ["off"],
+        "globals": {
+            "Handlebars": false
+        }
     },
 }];
